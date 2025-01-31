@@ -5,6 +5,9 @@ const int d = 1e6;
 
 int main()
 {
+    freopen("ppoint.inp", "r", stdin);
+    freopen("ppoint.out", "w", stdout);
+
     int n; cin >> n;
     vector<int> a(d);
     int x, y;
@@ -15,22 +18,28 @@ int main()
         a[x] = y;
         mx = max(mx, x);
     }
-    int r = 0, b = 0, cnt = 0, s = 0; y = 0;
-    for(int i = 0; i < mx; i++)
+    int c = 0, b = 0, cnt = 0, s = d; y = 0;
+    int l = 0, r = 0;
+    while(r < mx)
     {
-        if(a[i] == 1) r++, cnt++;
-        else if(a[i] == 2) y++, cnt++;
-        else if(a[i] == 3) b++, cnt++;
-        if((r > 0 or y > 0 or b > 0) and a[i] == 0) cnt++;
-        if(r > 0 and y > 0 and b > 0) 
+        if(a[r] == 1) c++;
+        else if(a[r] == 2) b++;
+        else if(a[r] == 3) y++;
+
+        cnt++;
+        while(c > 0 and y > 0 and b > 0) 
         {
-            s = max(s, cnt);
-            cnt = r = y = b = 0;
+            s = min(s, cnt);
+            if(a[l] == 1) c--;
+            else if(a[l] == 2) b--;
+            else if(a[l] == 3) y--;
+            cnt--; l++;
         }
+        r++;
     }
-    if(r > 0 and y > 0 and b > 0) 
+    if(c > 0 and y > 0 and b > 0) 
     {
-        s = max(s, cnt);
+        s = min(s, cnt);
         cnt = r = y = b = 0;
     }
 
