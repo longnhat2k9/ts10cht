@@ -43,5 +43,6 @@ int main()
         cnt = r = y = b = 0;
     }
 
-    cout << s - 1;
+    if(s != d) cout << s - 1;
+    else cout << -1;
 }
