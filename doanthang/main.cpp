@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-const int d = 1e9;
+const int d = 1e6;
 
 int main()
 {
