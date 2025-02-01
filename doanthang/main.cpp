@@ -9,40 +9,33 @@ int main()
     freopen("ppoint.out", "w", stdout);
 
     int n; cin >> n;
-    vector<int> a(d);
-    int x, y;
-    int mx = 0;
+    vector<pair<int, int>>a(n);
     for(int i = 0; i < n; i++)
     {
-        cin >> x >> y;
-        a[x] = y;
-        mx = max(mx, x);
+        int x, y; cin >> x >> y;
+        a[i] = make_pair(x, y);
     }
-    int c = 0, b = 0, cnt = 0, s = d; y = 0;
-    int l = 0, r = 0;
-    while(r < mx)
-    {
-        if(a[r] == 1) c++;
-        else if(a[r] == 2) b++;
-        else if(a[r] == 3) y++;
+    sort(a.begin(), a.end());
+    int l, r, m1, m2, m3, mn = d;
+    l = r = m1 = m2 = m3 = 0;
 
-        cnt++;
-        while(c > 0 and y > 0 and b > 0) 
+    while(r < n)
+    {
+        if(a[r].second == 1) m1++;
+        else if(a[r].second == 2) m2++;
+        else if(a[r].second == 3) m3++;
+
+        while(m1 > 0 and m2 > 0 and m3 > 0 and l <= r)
         {
-            s = min(s, cnt);
-            if(a[l] == 1) c--;
-            else if(a[l] == 2) b--;
-            else if(a[l] == 3) y--;
-            cnt--; l++;
+            mn = min(mn, a[r].first - a[l].first);
+            if(a[l].second == 1) m1--;
+            else if(a[l].second == 2) m2--;
+            else if(a[l].second == 3) m3--;
+            l++;
         }
         r++;
     }
-    if(c > 0 and y > 0 and b > 0) 
-    {
-        s = min(s, cnt);
-        cnt = r = y = b = 0;
-    }
 
-    if(s != d) cout << s - 1;
+    if(mn != d) cout << mn;
     else cout << -1;
 }
